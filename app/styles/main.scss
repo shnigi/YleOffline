@@ -1,0 +1,16 @@
+// Take into use to override MDC default colors
+/*
+$mdc-theme-primary: #fff;
+$mdc-theme-accent: #bd0707;
+$mdc-theme-background: #fff;
+*/
+
+// Import the individual components on-demand basis.
+@import "@material/button/mdc-button";
+@import "@material/card/mdc-card";
+@import "@material/list/mdc-list";
+@import "@material/toolbar/mdc-toolbar";
+@import "@material/typography/mdc-typography";
+
+// Override some of their default behaviours
+@import "overrides";
