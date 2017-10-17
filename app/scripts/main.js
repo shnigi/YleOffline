@@ -14,10 +14,19 @@ const getCurrentPrograms = () => {
         programs.innerHTML += `
         <div class="mdc-card card-image">
             <h1 class="image-title">${itemTitle}</h1>
-            <img src="${imageUrl}" style="width:100%;">
+            <img src="${imageUrl}" class="program-image">
           </div>
         `;
-      } // end of if
+      } else {
+          const imageUrl = 'images/no-image.jpg';
+          const itemTitle = item.content.itemTitle.fi || item.content.itemTitle.sv;
+        programs.innerHTML += `
+        <div class="mdc-card card-image">
+            <h1 class="image-title">${itemTitle}</h1>
+            <img src="${imageUrl}" class="program-image">
+          </div>
+        `;
+      }
       });
     });
 };
