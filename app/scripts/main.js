@@ -1,6 +1,3 @@
-// import './requests.js';
-// import {test} from './requests.js';
-// import kala from './requests.js';
 import * as apiRequests from './requests.js';
 
 const programs = document.getElementById('programs');
@@ -9,35 +6,22 @@ const getCurrentPrograms = () => {
   apiRequests.fetchCurrentPrograms()
     .then((response) => {
       response.forEach((item) => {
+        if (item && item.content && item.content.partOfSeries) {
+          const itemId = item.content.partOfSeries.coverImage.id ||
+                item.content.partOfSeries.image.id;
+          const imageUrl = `http://images.cdn.yle.fi/image/upload/${itemId}.jpg`;
+          const itemTitle = item.content.itemTitle.fi || item.content.itemTitle.sv;
         programs.innerHTML += `
-          <li class="mdc-list-item">
-            <i class="mdc-list-item__start-detail material-icons" aria-hidden="true">
-              chevron_right</i>
-              ${item.content.itemTitle.fi || item.content.itemTitle.sv}
-          </li>
+        <div class="mdc-card card-image">
+            <h1 class="image-title">${itemTitle}</h1>
+            <img src="${imageUrl}" style="width:100%;">
+          </div>
         `;
+      } // end of if
       });
     });
 };
-/*
- *
- *  Web Starter Kit
- *  Copyright 2015 Google Inc. All rights reserved.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *    https://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License
- *
- */
-/* eslint-env browser */
+
 (function() {
   'use strict';
 

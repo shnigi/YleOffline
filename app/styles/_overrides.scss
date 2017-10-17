@@ -1,9 +1,23 @@
 // Reset some of the HTML/CSS defaults
 body {
   margin: 0;
+  margin-bottom: 72px;
 }
 
 .bottom-footer {
   position: fixed;
   bottom: 0;
+}
+
+.image-title {
+  position: absolute;
+  margin-top: -20px;
+  margin-left: 20px;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+}
+
+.card-image {
+  margin-left: -15px;
+  margin-right: -15px;
 }

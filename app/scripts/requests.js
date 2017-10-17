@@ -19,5 +19,6 @@ export async function fetchCurrentPrograms() {
   const response = await fetchp(url.href, options);
   // TODO Validate response
   const json = await response.json();
+  console.log('data', json.data);
   return json.data;
 }
