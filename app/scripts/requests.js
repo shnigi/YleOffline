@@ -12,6 +12,9 @@ export async function fetchCurrentPrograms() {
   const params = url.searchParams;
   params.set('app_id', config.appId);
   params.set('app_key', config.appKey);
+  params.set('type', 'tvcontent');
+  params.set('downloadable', true);
+  params.set('availability', 'ondemand');
 
   // Fix the jsonp callback function name for service worker compatibility
   const options = {jsonpCallbackFunction: 'jsonp_options'};
@@ -20,4 +23,21 @@ export async function fetchCurrentPrograms() {
   // TODO Validate response
   const json = await response.json();
   return json.data;
+}
+
+export async function fetchEncryptedUrl(programId, mediaId) {
+  const url = new URL(`${baseUrl}/media/playouts.json`);
+  const params = url.searchParams;
+  params.set('app_id', config.appId);
+  params.set('app_key', config.appKey);
+  params.set('program_id', programId);
+  params.set('media_id', mediaId);
+  params.set('protocol', 'PMD');
+
+  // Fix the jsonp callback function name for service worker compatibility
+  const options = {jsonpCallbackFunction: 'jsonp_url'};
+  const response = await fetchp(url.href, options);
+  // TODO Validate response
+  const json = await response.json();
+  return json.data[0].url;
 }

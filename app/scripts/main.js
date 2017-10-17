@@ -1,6 +1,8 @@
 import * as apiRequests from './requests.js';
+import * as decrypt from './decryptUrl.js';
+import config from '../../config.json';
 
-const programs = document.getElementById('programs');
+const programsView = document.getElementById('programs');
 
 const getCurrentPrograms = () => {
   apiRequests.fetchCurrentPrograms()
@@ -11,25 +13,54 @@ const getCurrentPrograms = () => {
                 item.content.partOfSeries.image.id;
           const imageUrl = `http://images.cdn.yle.fi/image/upload/${itemId}.jpg`;
           const itemTitle = item.content.itemTitle.fi || item.content.itemTitle.sv;
-        programs.innerHTML += `
-        <div class="mdc-card card-image">
+          const mediaId = item.content.publicationEvent
+            .map((e) => {
+              if (!e.media || !e.media.available) {
+                return null;
+              }
+      
+              return e.media.id;
+            })
+            .find((id) => id !== null);
+        programsView.innerHTML += `
+        <a href="#${item.content.id}/${mediaId}"><div class="mdc-card card-image">
             <h1 class="image-title">${itemTitle}</h1>
-            <img src="${imageUrl}" class="program-image">
-          </div>
+            <img src="${imageUrl}" style="width:100%;">
+          </div></a>
         `;
       } else {
-          const imageUrl = 'images/no-image.jpg';
-          const itemTitle = item.content.itemTitle.fi || item.content.itemTitle.sv;
-        programs.innerHTML += `
-        <div class="mdc-card card-image">
-            <h1 class="image-title">${itemTitle}</h1>
-            <img src="${imageUrl}" class="program-image">
-          </div>
-        `;
-      }
-      });
+        const imageUrl = 'images/no-image.jpg';
+        const itemTitle = item.content.itemTitle.fi || item.content.itemTitle.sv;
+      programs.innerHTML += `
+      <div class="mdc-card card-image">
+          <h1 class="image-title">${itemTitle}</h1>
+          <img src="${imageUrl}" class="program-image">
+        </div>
+      `;
+    }
+    });
     });
 };
+
+/**
+ * Handles the URL (hash part) route change and update the application accordingly.
+ *
+ * @return {undefined} - No actual return value
+ */
+async function handleRouteChange() {
+  // Fetch the current route
+  const hashPart = location.hash.replace(/^#/, '');
+  console.log(`Handle route change '${hashPart}'`);
+
+  // Perform the routing
+  const segments = hashPart.split('/');
+  const contentId = segments[0];
+  const mediaId = segments[1];
+  const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
+  const url = decrypt.decrypt(encUrl, config.secret);
+  console.log(url);
+  return;
+}
 
 (function() {
   'use strict';
@@ -52,5 +83,6 @@ const getCurrentPrograms = () => {
   }
 
   // Your custom JavaScript goes here
+  window.addEventListener('hashchange', handleRouteChange);
   getCurrentPrograms();
 })();

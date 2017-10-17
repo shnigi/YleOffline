@@ -1,4 +1,5 @@
 {
   "appId": "YOUR_APP_ID",
-  "appKey": "YOUR_APP_KEY"
+  "appKey": "YOUR_APP_KEY",
+  "secret": "YOUR_SECRET"
 }

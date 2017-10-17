@@ -5,7 +5,7 @@ const CryptoJS = require('crypto-js');
  * @param {string} decryptKey - Your decryption key
  * @return {string} The decrypted URL
  */
-export default function decrypt(url, decryptKey) {
+export function decrypt(url, decryptKey) {
   const data = CryptoJS.enc.Base64.parse(url).toString(CryptoJS.enc.Hex);
   const key = CryptoJS.enc.Utf8.parse(decryptKey);
   const iv = CryptoJS.enc.Hex.parse(data.substr(0, 32));
