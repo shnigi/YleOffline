@@ -1,8 +1,6 @@
 const CryptoJS = require('crypto-js');
 
 /**
- * Fetch the current TV shows using JSONP and fetch JSONP polyfill.
- *
  * @param {string} url - The encrypted URL
  * @param {string} decryptKey - Your decryption key
  * @return {string} The decrypted URL
