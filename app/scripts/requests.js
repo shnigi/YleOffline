@@ -25,6 +25,13 @@ export async function fetchCurrentPrograms() {
   return json.data;
 }
 
+/**
+ * fetchEncryptedUrl - description
+ *
+ * @param  {type} programId description
+ * @param  {type} mediaId   description
+ * @return {type}           description
+ */
 export async function fetchEncryptedUrl(programId, mediaId) {
   const url = new URL(`${baseUrl}/media/playouts.json`);
   const params = url.searchParams;
