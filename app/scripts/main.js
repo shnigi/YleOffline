@@ -8,12 +8,12 @@ const getCurrentPrograms = () => {
   apiRequests.fetchCurrentPrograms()
     .then((response) => {
       response.forEach((item) => {
-        if (item && item.content && item.content.partOfSeries) {
-          const itemId = item.content.partOfSeries.coverImage.id ||
-                item.content.partOfSeries.image.id;
+        if (item && item.partOfSeries) {
+          const itemId = item.partOfSeries.coverImage.id ||
+                item.partOfSeries.image.id;
           const imageUrl = `http://images.cdn.yle.fi/image/upload/${itemId}.jpg`;
-          const itemTitle = item.content.itemTitle.fi || item.content.itemTitle.sv;
-          const mediaId = item.content.publicationEvent
+          const itemTitle = item.itemTitle.fi || item.itemTitle.sv;
+          const mediaId = item.publicationEvent
             .map((e) => {
               if (!e.media || !e.media.available) {
                 return null;
@@ -23,20 +23,29 @@ const getCurrentPrograms = () => {
             })
             .find((id) => id !== null);
         programsView.innerHTML += `
-        <a href="#${item.content.id}/${mediaId}"><div class="mdc-card card-image">
+        <a href="#${item.id}/${mediaId}"><div class="mdc-card card-image">
             <h1 class="image-title">${itemTitle}</h1>
             <img src="${imageUrl}" style="width:100%;">
           </div></a>
         `;
       } else {
         const imageUrl = 'images/no-image.jpg';
-        const itemTitle = item.content.itemTitle.fi || item.content.itemTitle.sv;
-      programs.innerHTML += `
-      <div class="mdc-card card-image">
-          <h1 class="image-title">${itemTitle}</h1>
-          <img src="${imageUrl}" class="program-image">
-        </div>
-      `;
+        const itemTitle = item.itemTitle.fi || item.itemTitle.sv;
+        const mediaId = item.publicationEvent
+        .map((e) => {
+          if (!e.media || !e.media.available) {
+            return null;
+          }
+  
+          return e.media.id;
+        })
+        .find((id) => id !== null);
+        programs.innerHTML += `
+        <a href="#${item.id}/${mediaId}"><div class="mdc-card card-image">
+            <h1 class="image-title">${itemTitle}</h1>
+            <img src="${imageUrl}" class="program-image">
+          </div></a>
+        `;
     }
     });
     });

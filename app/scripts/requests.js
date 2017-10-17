@@ -8,7 +8,7 @@ const baseUrl = 'https://external.api.yle.fi/v1';
  * @return {Array<Object>} YLE program metadata in unparsed form
  */
 export async function fetchCurrentPrograms() {
-  const url = new URL(`${baseUrl}/programs/schedules/now.json`);
+  const url = new URL(`${baseUrl}/programs/items.json`);
   const params = url.searchParams;
   params.set('app_id', config.appId);
   params.set('app_key', config.appKey);
