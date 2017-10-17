@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="styles/main.css">
   </head>
   <body class="mdc-typography">
-    <header class="mdc-toolbar">
+    <header class="mdc-toolbar mdc-toolbar--fixed">
       <div class="mdc-toolbar__row">
         <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
           <a href="#" class="material-icons mdc-toolbar__icon--menu" on="tap:left-bar.toggle">menu</a>
@@ -53,44 +53,32 @@
         </section>
       </div>
     </header>
+
     <main>
-
-      <!-- <div class="mdc-card">
-        <section class="mdc-card__primary">
-          <h1 class="mdc-card__title mdc-card__title--large">Sample title</h1>
-          <h2 class="mdc-card__subtitle">Sample subtitle</h2>
-        </section>
-        <section class="mdc-card__supporting-text">
-          <p>Lorem ipsum...</p>
-          <p>Doloret sit amet...</p>
-        </section>
-        <section class="mdc-card__actions">
-          <button class="mdc-button mdc-card__action">Sample action</button>
-          <button class="mdc-button mdc-button--raised mdc-button--accent mdc-card__action">Accented action</button>
-        </section>
-      </div> -->
-
       <div class="mdc-card">
         <section class="mdc-card__primary">
           <h1 class="mdc-card__title mdc-card__title--large">Ohjelmistossa nyt</h1>
           <!-- <h2 class="mdc-card__subtitle">Sample list subtitle</h2> -->
         </section>
         <ul class="mdc-list" id="programs">
-          <!-- <li class="mdc-list-item">
-            <i class="mdc-list-item__start-detail material-icons" aria-hidden="true">chevron_right</i>
-            Foo
-          </li>
-          <li class="mdc-list-item">
-            <i class="mdc-list-item__start-detail material-icons" aria-hidden="true">chevron_right</i>
-            Bar
-          </li>
-          <li class="mdc-list-item">
-            <i class="mdc-list-item__start-detail material-icons" aria-hidden="true">chevron_right</i>
-            Baz
-          </li> -->
+
         </ul>
       </div>
     </main>
+
+    <footer class="mdc-toolbar bottom-footer">
+      <nav id="icon-text-tab-bar" class="mdc-tab-bar mdc-tab-bar--icons-with-text">
+        <a class="mdc-tab mdc-tab--with-icon-and-text mdc-tab--active" href="#ohjelmat">
+          <i class="material-icons mdc-tab__icon" aria-hidden="true">live_tv</i>
+          <span class="mdc-tab__icon-text">Ohjelmat</span>
+        </a>
+        <a class="mdc-tab mdc-tab--with-icon-and-text" href="#tallennettu">
+          <i class="material-icons mdc-tab__icon" aria-hidden="true">file_download</i>
+          <span class="mdc-tab__icon-text">Tallennettu</span>
+        </a>
+        <span class="mdc-tab-bar__indicator"></span>
+      </nav>
+    </footer>
 
     <!-- build:js scripts/main.min.js -->
     <script src="scripts/bundle.js"></script>
