@@ -18,7 +18,7 @@ const getCurrentPrograms = () => {
               if (!e.media || !e.media.available) {
                 return null;
               }
-      
+
               return e.media.id;
             })
             .find((id) => id !== null);
