@@ -29,9 +29,11 @@ export default class MediaDetails {
         const progDescription = this.media.program.description.fi || this.media.program.description.sv || '';
         this.element.innerHTML = `
         <div class="mdc-card card-image">
-          ${progDescription}
           <h2 class="image-title">${progTitle}</h2>
           <img src="${progImage}" style="width:100%;">
+        </div>
+        <div class="mdc-list">
+          ${progDescription}
         </div>
         <ul class="mdc-list mdc-list--two-line mdc-list--avatar-list two-line-avatar-text-icon-demo msgs-list">
         `;

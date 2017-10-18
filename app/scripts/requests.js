@@ -45,7 +45,7 @@ export async function fetchMediaItem(id) {
 
   const response = await fetchp(url.href, options);
   const json = await response.json();
-  const episodes = _.map(json.data, (item) => new MediaItem(item));
+  const episodes = json.data.map((item) => new MediaItem(item));
   return {program: mediaJson.data.partOfSeries, episodes: episodes};
 }
 
