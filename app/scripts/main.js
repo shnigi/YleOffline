@@ -113,8 +113,9 @@ async function showMediaList() {
 };
 
 async function showMediaDetails(id) {
-  console.log('wat');
+  console.log('id', id);
   const item = await apiRequests.fetchMediaItem(id);
+  console.log('item', item);
   const page = new MediaDetails(view, item);
   page.render();
   const goBack = () => window.history.back();

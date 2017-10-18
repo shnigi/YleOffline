@@ -30,7 +30,12 @@ export async function fetchMediaItem(id) {
 
   const mediaResponse = await fetchp(mediaUrl.href, mediaOptions);
   const mediaJson = await mediaResponse.json();
-  const programId = mediaJson.data.partOfSeries.id;
+  let programId = undefined;
+  if (mediaJson.data.partOfSeries) {
+    programId = mediaJson.data.partOfSeries.id;
+  } else {
+    programId = mediaJson.data.id;
+  }
 
   const url = new URL(`${baseUrl}/programs/items.json`);
   const params = url.searchParams;
@@ -46,8 +51,11 @@ export async function fetchMediaItem(id) {
   const response = await fetchp(url.href, options);
   const json = await response.json();
   const episodes = json.data.map((item) => new MediaItem(item));
-  return {program: mediaJson.data.partOfSeries, episodes: episodes};
-}
+  if (mediaJson.data.partOfSeries) {
+    return {program: mediaJson.data.partOfSeries, episodes: episodes};
+  }
+  return {program: mediaJson.data, episodes: episodes};
+};
 
 export async function fetchEncryptedUrl(programId, mediaId) {
   const url = new URL(`${baseUrl}/media/playouts.json`);
