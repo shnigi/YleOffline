@@ -15,6 +15,9 @@ export default class DownloadedList {
 
   /**
    * Render page.
+   *
+   * The cards should show the program name, episode number and
+   * episode length.
    */
   render() {
     this.element.innerHTML = this.mediaItems.map((media) => {
