@@ -1,4 +1,2 @@
 * text=auto
 CONTRIBUTING.md export-ignore
-*.js -crlf
-*.json -crlf
