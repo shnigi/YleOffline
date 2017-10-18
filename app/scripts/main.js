@@ -56,12 +56,6 @@ async function showSearchResults(queryParam) {
   page.render();
 };
 
-async function showMediaDetails(id) {
-  const item = await apiRequests.fetchMediaItem(id);
-  const page = new MediaDetails(view, item);
-  page.render();
-};
-
 async function showDownloaded() {
   const mediaItems = await apiRequests.fetchCurrentPrograms();
   const page = new DownloadedList(view, mediaItems);
@@ -119,9 +113,13 @@ async function showMediaList() {
 };
 
 async function showMediaDetails(id) {
+  console.log('wat');
   const item = await apiRequests.fetchMediaItem(id);
   const page = new MediaDetails(view, item);
   page.render();
+  const goBack = () => window.history.back();
+  const backButton = document.getElementById('goBack');
+  backButton.addEventListener('click', goBack);
 };
 
 async function initDownload(contentId, mediaId) {
