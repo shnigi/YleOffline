@@ -39,6 +39,7 @@ export default class DownloadedList {
             </a>
           </span>
         </li>
+        <hr>
         `;
         });
       html += `

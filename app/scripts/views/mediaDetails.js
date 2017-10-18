@@ -50,6 +50,7 @@ export default class MediaDetails {
                 </a>
               </span>
             </li>
+            <hr>
             `;
             });
           html += `
