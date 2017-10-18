@@ -9,6 +9,22 @@ import DownloadedList from './views/downloadedList.js';
 import Player from './views/player.js';
 
 const view = document.getElementById('view');
+const programsTab = document.getElementById('programs');
+const downloadedTab = document.getElementById('tallennettu');
+
+const changeActiveTab = (tab) => {
+  console.log('tab', tab);
+  if (tab === 'downloads') {
+    programsTab.classList.remove('mdc-tab--active');
+    downloadedTab.className += ' mdc-tab--active';
+  } else if (tab === 'programs') {
+    downloadedTab.classList.remove('mdc-tab--active');
+    programsTab.className += ' mdc-tab--active';
+  }
+};
+
+downloadedTab.addEventListener('click', () => changeActiveTab('downloads'));
+programsTab.addEventListener('click', () => changeActiveTab('programs'));
 
 const routes = {
   list: showMediaList,
