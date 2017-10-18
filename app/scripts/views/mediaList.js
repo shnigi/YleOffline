@@ -11,22 +11,20 @@ export default class MediaList {
   constructor(element, mediaItems = null) {
     this.element = element;
     this.mediaItems = mediaItems;
-    //this.supportsPUSH = false;
+    // this.supportsPUSH = false;
   }
 
-  /**
-   * Render page.
-   *
-   * @return {HTMLElement} The rendered element
-   */
   render() {
     this.element.innerHTML = '';
     this.mediaItems.forEach((media) => {
         this.element.innerHTML += `
-          <a href="#details/${media.getId()}"><div class="mdc-card card-image">
-            <h1 class="image-title">${media.getTitle()}</h1>
-            <img src="${media.getImageUrl()}" style="width:100%;">
-          </div></a>
+          <a href="#details/${media.getId()}">
+            <div class="mdc-card card-image">
+              <h1 class="image-title">${media.getTitle()}</h1>
+              <img src="${media.getImageUrl()}" class="program-image"
+                onerror="this.onerror=null;this.src='images/no-image.jpg';">
+            </div>
+          </a>
         `;
     });
 
@@ -34,5 +32,4 @@ export default class MediaList {
     // const tabBarScroller =
     //  new MDCTabBarScroller(document.querySelector('.mdc-tab-bar-scroller'));
   }
-
 }

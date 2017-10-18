@@ -31,15 +31,17 @@ export default class MediaItem {
     }
 
     getImageUrl() {
-        if (!this.json.partOfSeries) {
-          return 'images/no-image.jpg';
-        }
-        if (!this.json.partOfSeries.coverImage && !this.json.partOfSeries.image) {
-          return 'images/no-image.jpg';
-        }
-        const itemId = this.json.partOfSeries.coverImage.id ||
-            this.json.partOfSeries.image.id;
-        return `http://images.cdn.yle.fi/image/upload/${itemId}.jpg`;
+      if (this.json.partOfSeries) {
+        const image = this.json.partOfSeries.coverImage ||
+                      this.json.partOfSeries.image;
+        return `http://images.cdn.yle.fi/image/upload/${image.id}.jpg`;
+      }
+      if (this.json.image || this.json.coverImage) {
+        const image = this.json.image ||
+                      this.json.coverImage;
+        return `http://images.cdn.yle.fi/image/upload/${image.id}.jpg`;
+      }
+      return 'images/no-image.jpg';
     }
 
     getDescription() {
