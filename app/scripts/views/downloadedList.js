@@ -20,12 +20,27 @@ export default class DownloadedList {
    * episode length.
    */
   render() {
-    this.element.innerHTML = this.mediaItems.map((media) => {
-      return `<a href="#downloaded/${media.getId()}"><div class="mdc-card">
-            <i class="material-icons">play arrow</i>
-            <h5 class="image-title">${media.getTitle()}</h1>
-          </div></a>
+    let html = `
+    <section>
+      <ul class="listaus">
+      `;
+      this.mediaItems.forEach((episode) => {
+        html += `
+        <li>
+          <span class="lLeft">
+            <span class="lTitle">${episode.getTitle()}</span>
+            <span class="lDur">Kesto ${episode.getDuration()}min</span>
+          </span>
+          <span class="lRight">
+            <a href="#download/${episode.getId()}/${episode.getMediaId()}"><i class="material-icons btnGray" arial-label="Stream">play_circle_filled</i></a>
+          </span>
+        </li>      
         `;
-    }).join('');
+        });
+      html += `
+        </ul>
+      </section>
+    `;
+    this.element.innerHTML = html;
   }
 }

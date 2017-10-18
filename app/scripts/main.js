@@ -6,6 +6,7 @@ import * as Categories from './categories.js';
 import MediaList from './views/mediaList.js';
 import MediaDetails from './views/mediaDetails.js';
 import DownloadedList from './views/downloadedList.js';
+import Player from './views/player.js';
 
 const view = document.getElementById('view');
 
@@ -129,7 +130,8 @@ async function initDownload(contentId, mediaId) {
     console.log('No file available');
   } else {
     const url = decrypt.decrypt(encUrl, config.secret);
-    console.log(url);
+    const page = new Player(view, url);
+    page.render();
   }
 };
 
