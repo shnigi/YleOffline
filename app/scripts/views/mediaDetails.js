@@ -11,14 +11,9 @@ export default class MediaDetails {
     constructor(element, mediaItem = null) {
       this.element = element;
       this.mediaItem = mediaItem;
-      //this.supportsPUSH = false;
+      // this.supportsPUSH = false;
     }
-  
-    /**
-     * Render page.
-     *
-     * @return {HTMLElement} The rendered element
-     */
+
     render() {
       this.element.innerHTML = `
         <div class="mdc-card card-image">
@@ -26,10 +21,9 @@ export default class MediaDetails {
           <img src="${this.mediaItem.getImageUrl()}" style="width:100%;">
         </div>
       `;
-  
+
       // Attach the scroller - this is done after templating to permit the right behaviour
       // const tabBarScroller =
       //  new MDCTabBarScroller(document.querySelector('.mdc-tab-bar-scroller'));
     }
-  
   }

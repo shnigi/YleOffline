@@ -1,7 +1,4 @@
 import * as apiRequests from './requests.js';
-import * as draw from './drawItems.js';
-import * as decrypt from './decryptUrl.js';
-import config from '../../config.json';
 
 import MediaList from './views/mediaList.js';
 import MediaDetails from './views/mediaDetails.js';
@@ -10,14 +7,13 @@ const view = document.getElementById('view');
 
 const routes = {
   list: showMediaList,
-  details: showMediaDetails
+  details: showMediaDetails,
 };
 
 const searchInput = document.getElementById('searchShowsInput');
 let timeout = null;
-
 // If user stops typing, after 500ms fetch shows and draw them
-const getMatchingShows = () => {
+async function getMatchingShows() {
   clearTimeout(timeout);
    timeout = setTimeout( () => {
     const value = searchInput.value;
@@ -25,15 +21,21 @@ const getMatchingShows = () => {
       view.innerHTML = '';
       routes.list();
     } else {
-      apiRequests.searchPrograms(value)
-      .then((response) => {
-        view.innerHTML = '';
-        response.forEach((item) => {
-          draw.drawItems(item);
-        });
-      });
+      showSearchResults(value);
     }
     }, 500);
+};
+
+async function showSearchResults(queryParam) {
+  const mediaItems = await apiRequests.searchPrograms(queryParam);
+  const page = new MediaList(view, mediaItems);
+  page.render();
+};
+
+async function showMediaDetails(id) {
+  const item = await apiRequests.fetchMediaItem(id);
+  const page = new MediaDetails(view, item);
+  page.render();
 };
 
 // Add eventlistener to watch changes in search form
@@ -59,7 +61,7 @@ async function handleRouteChange() {
       break;
     default:
       break;
-  }
+  };
 /*  const contentId = segments[0];
   const mediaId = segments[1];
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
@@ -75,13 +77,13 @@ async function showMediaList() {
   const mediaItems = await apiRequests.fetchCurrentPrograms();
   const page = new MediaList(view, mediaItems);
   page.render();
-}
+};
 
 async function showMediaDetails(id) {
   const item = await apiRequests.fetchMediaItem(id);
   const page = new MediaDetails(view, item);
   page.render();
-}
+};
 
 (function() {
   'use strict';
