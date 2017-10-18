@@ -12,22 +12,24 @@
     transition: 0.5s;
 }
 
+$colors: #F2994A, #219653, #EB5757, #2F80ED, #9B51E0, #F2C94C, #6FCF97;
+
+@for $i from 1 through length($colors) {
+	.sidenav a:nth-child(#{length($colors)}n+#{$i}) {
+		background: (nth($colors, $i));
+    width: 0px;
+}
+}
+
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    text-indent: 50px;
+    padding: 8px 8px 8px 0px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
     transition: 0.3s;
 }
-
-// .sidenav a::before {
-//   content: "";
-//   padding: 8px 3px 13px 3px;
-//   width: 0px;
-//   height: 100%;
-//   background-color: #ff0;
-// }
 
 .sidenav a:hover {
     color: #f1f1f1;
