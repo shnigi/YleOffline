@@ -11,7 +11,7 @@ const view = document.getElementById('view');
 const routes = {
   list: showMediaList,
   details: showMediaDetails
-}
+};
 
 const searchInput = document.getElementById('searchShowsInput');
 let timeout = null;
