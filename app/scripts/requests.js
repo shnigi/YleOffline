@@ -88,3 +88,21 @@ export async function searchPrograms(queryParam) {
     return null;
   }
 };
+
+export async function fetchCategoryPrograms(category) {
+  const url = new URL(`${baseUrl}/programs/items.json`);
+  const params = url.searchParams;
+  params.set('app_id', config.appId);
+  params.set('app_key', config.appKey);
+  params.set('category', category);
+  params.set('limit', 10);
+
+  const options = {jsonpCallbackFunction: 'jsonp_url'};
+  try {
+    const response = await fetchp(url.href, options);
+    const json = await response.json();
+    return json.data.map((item) => new MediaItem(item));
+  } catch (e) {
+    return null;
+  }
+};

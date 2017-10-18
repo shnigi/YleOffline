@@ -1,6 +1,7 @@
 import * as apiRequests from './requests.js';
 import * as decrypt from './decryptUrl.js';
 import config from '../../config.json';
+import * as Categories from './categories.js';
 
 import MediaList from './views/mediaList.js';
 import MediaDetails from './views/mediaDetails.js';
@@ -13,6 +14,7 @@ const routes = {
   details: showMediaDetails,
   downloaded: showDownloaded,
   download: initDownload,
+  category: showCategory,
 };
 
 let navIsOpen = false;
@@ -65,6 +67,15 @@ async function showDownloaded() {
   page.render();
 };
 
+async function showCategory() {
+  const hashPart = location.hash.replace(/^#/, '');
+  const category = hashPart.split('/')[1];
+  const categoryId = Categories.getCategory(category);
+  const mediaItems = await apiRequests.fetchCategoryPrograms(categoryId);
+  const page = new MediaList(view, mediaItems);
+  page.render();
+};
+
 // Add eventlistener to watch changes in search form
 searchInput.addEventListener('change', getMatchingShows);
 searchInput.addEventListener('keyup', getMatchingShows);
@@ -91,6 +102,8 @@ async function handleRouteChange() {
       break;
     case 'download':
       routes.download(segments[1], segments[2]);
+    case 'category':
+      routes.category();
       break;
     default:
       break;

@@ -27,7 +27,7 @@ export default class MediaItem {
     }
 
     getTitle() {
-        return this.json.itemTitle.fi || this.json.itemTitle.sv;
+        return this.json.itemTitle.fi || this.json.itemTitle.sv || this.json.itemTitle.und;
     }
 
     getImageUrl() {
