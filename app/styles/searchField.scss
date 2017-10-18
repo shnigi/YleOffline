@@ -9,6 +9,19 @@ input[type=search] {
 	font-size: 100%;
 }
 
+#searchShows input::-webkit-search-decoration,
+#searchShows input::-webkit-search-cancel-button {
+	display: none;
+}
+
+#searchShowsInput::-webkit-input-placeholder { /* WebKit browsers */
+  opacity: 0;
+}
+
+#searchShowsInput:focus::-webkit-input-placeholder { /* WebKit browsers */
+  opacity: 1 !important;
+}
+
 #searchShows input[type=search] {
 	background: $primary-color url(../images/search-icon-white.png) no-repeat 9px center;
 	border: solid 1px $primary-color;

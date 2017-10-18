@@ -1,4 +1,5 @@
 import * as apiRequests from './requests.js';
+import * as draw from './drawItems.js';
 import * as decrypt from './decryptUrl.js';
 import config from '../../config.json';
 
@@ -8,7 +9,34 @@ const view = document.getElementById('view');
 
 const routes = {
   list: showMediaList
+}
+
+const searchInput = document.getElementById('searchShowsInput');
+let timeout = null;
+
+// If user stops typing, after 500ms fetch shows and draw them
+const getMatchingShows = () => {
+  clearTimeout(timeout);
+   timeout = setTimeout( () => {
+    const value = searchInput.value;
+    if (value === '') {
+      view.innerHTML = '';
+      routes.list();
+    } else {
+      apiRequests.searchPrograms(value)
+      .then((response) => {
+        view.innerHTML = '';
+        response.forEach((item) => {
+          draw.drawItems(item);
+        });
+      });
+    }
+    }, 500);
 };
+
+// Add eventlistener to watch changes in search form
+searchInput.addEventListener('change', getMatchingShows);
+searchInput.addEventListener('keyup', getMatchingShows);
 
 /**
  * Handles the URL (hash part) route change and update the application accordingly.
@@ -23,10 +51,10 @@ async function handleRouteChange() {
   const mediaId = segments[1];
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
   if (encUrl == null) {
-    console.log("No file available");
+    console.log('No file available');
   } else {
     const url = decrypt.decrypt(encUrl, config.secret);
-    console.log(url);  
+    console.log(url);
   }
 }
 
@@ -38,15 +66,8 @@ async function showMediaList() {
 
 (function() {
   'use strict';
-
-  // Check to make sure service workers are supported in the current browser,
-  // and that the current page is accessed from a secure origin. Using a
-  // service worker from an insecure origin will trigger JS console errors. See
-  // http://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features
   const isLocalhost = Boolean(window.location.hostname === 'localhost' ||
-      // [::1] is the IPv6 localhost address.
       window.location.hostname === '[::1]' ||
-      // 127.0.0.1/8 is considered localhost for IPv4.
       window.location.hostname.match(
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
       )
@@ -56,7 +77,6 @@ async function showMediaList() {
     navigator.serviceWorker.register('service-worker.js');
   }
 
-  // Your custom JavaScript goes here
   window.addEventListener('hashchange', handleRouteChange);
   routes.list();
 })();
