@@ -20,7 +20,7 @@ export default class MediaList {
         this.element.innerHTML += `
           <a href="#details/${media.getId()}">
             <div class="mdc-card card-image">
-              <h1 class="image-title">${media.getTitle()}</h1>
+              <h2 class="image-title">${media.getTitle()}</h2>
               <img src="${media.getImageUrl()}" class="program-image"
                 onerror="this.onerror=null;this.src='images/no-image.jpg';">
             </div>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YLE Offline videos</title>
+    <title>YLE-Off</title>
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -48,14 +48,30 @@
     <header class="mdc-toolbar mdc-toolbar--fixed">
       <div class="mdc-toolbar__row">
         <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-          <a href="#" class="material-icons mdc-toolbar__icon--menu" on="tap:left-bar.toggle">menu</a>
-          <span class="mdc-toolbar__title">YLE Offline videos</span>
+          <!-- <a class="material-icons mdc-toolbar__icon--menu" on="tap:left-bar.toggle" id="toggleMenu">menu</a> -->
+          <div class="material-icons" id="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span class="mdc-toolbar__title">YLE-Off</span>
         </section>
         <div id="searchShows">
         	<input id="searchShowsInput" type="search" placeholder="Hae ohjelmia">
         </div>
       </div>
     </header>
+
+    <div id="sideNav" class="sidenav">
+      <a href="#">Uutiset</a>
+      <a href="#">Sarjat</a>
+      <a href="#">Dokumentit</a>
+      <a href="#">Urheilu</a>
+      <a href="#">Elokuvat</a>
+      <a href="#">Lapset</a>
+      <a href="#">Historia</a>
+    </div>
 
     <main>
         <div class="mdc-list" id="view">
@@ -65,11 +81,12 @@
 
     <footer class="mdc-toolbar bottom-footer">
       <nav id="icon-text-tab-bar" class="mdc-tab-bar mdc-tab-bar--icons-with-text">
-        <a class="mdc-tab mdc-tab--with-icon-and-text mdc-tab--active" href="">
+        <a class="mdc-tab mdc-tab--with-icon-and-text mdc-tab--active" href="#">
           <i class="material-icons mdc-tab__icon" aria-hidden="true">live_tv</i>
           <span class="mdc-tab__icon-text">Ohjelmat</span>
         </a>
-        <a class="mdc-tab mdc-tab--with-icon-and-text" href="#tallennettu">
+        <a class="mdc-tab mdc-tab--with-icon-and-text" href="#downloaded"
+          id="tallennettu">
           <i class="material-icons mdc-tab__icon" aria-hidden="true">file_download</i>
           <span class="mdc-tab__icon-text">Tallennettu</span>
         </a>

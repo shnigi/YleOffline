@@ -12,6 +12,22 @@ const routes = {
   downloaded: showDownloaded,
 };
 
+let navIsOpen = false;
+const handleNav = () => {
+  if (navIsOpen) {
+    navIsOpen = false;
+    document.getElementById('sideNav').style.width = '0';
+  } else {
+    navIsOpen = true;
+    document.getElementById('sideNav').style.width = '250px';
+  }
+};
+
+const hamburger = document.getElementById('hamburger-icon');
+const hamburgerAnimation = () => hamburger.classList.toggle('open');
+hamburger.addEventListener('click', hamburgerAnimation);
+hamburger.addEventListener('click', handleNav);
+
 const searchInput = document.getElementById('searchShowsInput');
 let timeout = null;
 // If user stops typing, after 500ms fetch shows and draw them
@@ -62,9 +78,6 @@ async function handleRouteChange() {
   const action = segments[0];
   switch (action) {
     case '':
-      routes.list();
-      break;
-    case 'list':
       routes.list();
       break;
     case 'details':
