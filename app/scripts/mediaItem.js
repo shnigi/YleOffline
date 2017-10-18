@@ -41,4 +41,8 @@ export default class MediaItem {
             this.json.partOfSeries.image.id;
         return `http://images.cdn.yle.fi/image/upload/${itemId}.jpg`;
     }
+
+    getDescription() {
+        return this.json.description.fi || this.json.description.sv;
+    }
 }

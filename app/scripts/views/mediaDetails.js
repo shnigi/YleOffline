@@ -25,6 +25,21 @@ export default class MediaDetails {
           <h1 class="image-title">${this.mediaItem.getTitle()}</h1>
           <img src="${this.mediaItem.getImageUrl()}" style="width:100%;">
         </div>
+        <div class="mdc-list">
+          ${this.mediaItem.getDescription()}
+        </div>
+        <ul class="mdc-list mdc-list--two-line mdc-list--avatar-list two-line-avatar-text-icon-demo msgs-list">
+          <li class="mdc-list-item ">
+              <span class="mdc-list-item__text">
+                Jakso
+                <span class="mdc-list-item__text__secondary">Kesto 45min</span>
+              </span>
+              <span class="mdc-list-item__end-detail">
+                <a href="#download"><i class="material-icons btnGray" arial-label="Download">file_download</i></a>
+                <a href="#stream"><i class="material-icons btnGreen" arial-label="Stream">play_circle_filled</i></a>
+              </span>  
+          </li>
+        </ul>
       `;
   
       // Attach the scroller - this is done after templating to permit the right behaviour
