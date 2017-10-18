@@ -2,12 +2,14 @@ import * as apiRequests from './requests.js';
 
 import MediaList from './views/mediaList.js';
 import MediaDetails from './views/mediaDetails.js';
+import DownloadedList from './views/downloadedList.js';
 
 const view = document.getElementById('view');
 
 const routes = {
   list: showMediaList,
   details: showMediaDetails,
+  downloaded: showDownloaded,
 };
 
 const searchInput = document.getElementById('searchShowsInput');
@@ -38,6 +40,12 @@ async function showMediaDetails(id) {
   page.render();
 };
 
+async function showDownloaded() {
+  const mediaItems = await apiRequests.fetchCurrentPrograms();
+  const page = new DownloadedList(view, mediaItems);
+  page.render();
+};
+
 // Add eventlistener to watch changes in search form
 searchInput.addEventListener('change', getMatchingShows);
 searchInput.addEventListener('keyup', getMatchingShows);
@@ -58,6 +66,9 @@ async function handleRouteChange() {
       break;
     case 'details':
       routes.details(segments[1]);
+      break;
+    case 'downloaded':
+      routes.downloaded();
       break;
     default:
       break;
