@@ -4,11 +4,13 @@ import * as decrypt from './decryptUrl.js';
 import config from '../../config.json';
 
 import MediaList from './views/mediaList.js';
+import MediaDetails from './views/mediaDetails.js';
 
 const view = document.getElementById('view');
 
 const routes = {
-  list: showMediaList
+  list: showMediaList,
+  details: showMediaDetails
 }
 
 const searchInput = document.getElementById('searchShowsInput');
@@ -47,7 +49,18 @@ async function handleRouteChange() {
 
   // Perform the routing
   const segments = hashPart.split('/');
-  const contentId = segments[0];
+  const action = segments[0];
+  switch (action) {
+    case 'list':
+      routes.list();
+      break;
+    case 'details':
+      routes.details(segments[1]);
+      break;
+    default:
+      break;
+  }
+/*  const contentId = segments[0];
   const mediaId = segments[1];
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
   if (encUrl == null) {
@@ -55,12 +68,18 @@ async function handleRouteChange() {
   } else {
     const url = decrypt.decrypt(encUrl, config.secret);
     console.log(url);
-  }
+  }*/
 }
 
 async function showMediaList() {
   const mediaItems = await apiRequests.fetchCurrentPrograms();
   const page = new MediaList(view, mediaItems);
+  page.render();
+}
+
+async function showMediaDetails(id) {
+  const item = await apiRequests.fetchMediaItem(id);
+  const page = new MediaDetails(view, item);
   page.render();
 }
 

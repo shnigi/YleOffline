@@ -31,6 +31,26 @@ export async function fetchCurrentPrograms() {
 }
 
 /**
+ * Fetch specific media item
+ *
+ * @return {String} Id of specific item
+ */
+export async function fetchMediaItem(id) {
+  const url = new URL(`${baseUrl}/programs/items/${id}.json`);
+  const params = url.searchParams;
+  params.set('app_id', config.appId);
+  params.set('app_key', config.appKey);
+
+  // Fix the jsonp callback function name for service worker compatibility
+  const options = {jsonpCallbackFunction: 'jsonp_mediaitem'};
+
+  const response = await fetchp(url.href, options);
+  // TODO Validate response
+  const json = await response.json();
+  return new MediaItem(json.data);
+}
+
+/**
  * fetchEncryptedUrl - description
  *
  * @param  {type} programId description

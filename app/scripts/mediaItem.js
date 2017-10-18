@@ -1,7 +1,7 @@
 /**
  * Model class for videos that can be downloaded for offline use
  */
-export default class ChannelGuide {
+export default class MediaItem {
     /**
      * Constructor
      * @param {JSON} json - json object that contains properties that this object has

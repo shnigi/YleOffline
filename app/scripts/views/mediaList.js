@@ -23,7 +23,7 @@ export default class MediaList {
     this.element.innerHTML = '';
     this.mediaItems.forEach((media) => {
         this.element.innerHTML += `
-          <a href="#${media.getId()}"><div class="mdc-card card-image">
+          <a href="#details/${media.getId()}"><div class="mdc-card card-image">
             <h1 class="image-title">${media.getTitle()}</h1>
             <img src="${media.getImageUrl()}" style="width:100%;">
           </div></a>
