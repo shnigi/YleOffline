@@ -8,7 +8,7 @@ const searchInput = document.getElementById('searchShowsInput');
 let timeout = null;
 
 // If user stops typing, after 500ms fetch shows and draw them
-const getMatchingShows = (e) => {
+const getMatchingShows = () => {
   clearTimeout(timeout);
    timeout = setTimeout( () => {
     const value = searchInput.value;
