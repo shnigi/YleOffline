@@ -97,7 +97,7 @@ export async function fetchCategoryPrograms(category) {
   params.set('category', category);
   params.set('limit', 10);
 
-  const options = {jsonpCallbackFunction: 'jsonp_url'};
+  const options = {jsonpCallbackFunction: 'jsonp_category'};
   try {
     const response = await fetchp(url.href, options);
     const json = await response.json();

@@ -102,6 +102,7 @@ async function handleRouteChange() {
       break;
     case 'download':
       routes.download(segments[1], segments[2]);
+      break;
     case 'category':
       routes.category();
       break;
