@@ -2,59 +2,16 @@ import * as apiRequests from './requests.js';
 import * as decrypt from './decryptUrl.js';
 import config from '../../config.json';
 
-const programsView = document.getElementById('programs');
+import MediaList from './views/mediaList.js';
 
-const getCurrentPrograms = () => {
-  apiRequests.fetchCurrentPrograms()
-    .then((response) => {
-      response.forEach((item) => {
-        if (item && item.partOfSeries) {
-          const itemId = item.partOfSeries.coverImage.id ||
-                item.partOfSeries.image.id;
-          const imageUrl = `http://images.cdn.yle.fi/image/upload/${itemId}.jpg`;
-          const itemTitle = item.itemTitle.fi || item.itemTitle.sv;
-          const mediaId = item.publicationEvent
-            .map((e) => {
-              if (!e.media || !e.media.available) {
-                return null;
-              }
+const view = document.getElementById('view');
 
-              return e.media.id;
-            })
-            .find((id) => id !== null);
-        programsView.innerHTML += `
-        <a href="#${item.id}/${mediaId}"><div class="mdc-card card-image">
-            <h1 class="image-title">${itemTitle}</h1>
-            <img src="${imageUrl}" style="width:100%;">
-          </div></a>
-        `;
-      } else {
-        const imageUrl = 'images/no-image.jpg';
-        const itemTitle = item.itemTitle.fi || item.itemTitle.sv;
-        const mediaId = item.publicationEvent
-        .map((e) => {
-          if (!e.media || !e.media.available) {
-            return null;
-          }
-  
-          return e.media.id;
-        })
-        .find((id) => id !== null);
-        programs.innerHTML += `
-        <a href="#${item.id}/${mediaId}"><div class="mdc-card card-image">
-            <h1 class="image-title">${itemTitle}</h1>
-            <img src="${imageUrl}" class="program-image">
-          </div></a>
-        `;
-    }
-    });
-    });
+const routes = {
+  list: showMediaList
 };
 
 /**
  * Handles the URL (hash part) route change and update the application accordingly.
- *
- * @return {undefined} - No actual return value
  */
 async function handleRouteChange() {
   // Fetch the current route
@@ -71,7 +28,12 @@ async function handleRouteChange() {
     const url = decrypt.decrypt(encUrl, config.secret);
     console.log(url);  
   }
-  return;
+}
+
+async function showMediaList() {
+  const mediaItems = await apiRequests.fetchCurrentPrograms();
+  const page = new MediaList(view, mediaItems);
+  page.render();
 }
 
 (function() {
@@ -96,5 +58,5 @@ async function handleRouteChange() {
 
   // Your custom JavaScript goes here
   window.addEventListener('hashchange', handleRouteChange);
-  getCurrentPrograms();
+  routes.list();
 })();

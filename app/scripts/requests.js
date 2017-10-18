@@ -1,5 +1,6 @@
 import fetchp from 'fetch-jsonp';
 import config from '../../config.json';
+import MediaItem from './mediaItem.js';
 
 const baseUrl = 'https://external.api.yle.fi/v1';
 /**
@@ -23,6 +24,7 @@ export async function fetchCurrentPrograms() {
   const response = await fetchp(url.href, options);
   // TODO Validate response
   const json = await response.json();
+  json.data.map(item => new MediaItem(item));
   return json.data;
 }
 
