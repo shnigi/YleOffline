@@ -20,7 +20,7 @@ export default class ChannelGuide {
           if (!e.media || !e.media.available) {
             return null;
           }
-  
+
           return e.media.id;
         })
         .find((id) => id !== null);
@@ -31,10 +31,12 @@ export default class ChannelGuide {
     }
 
     getImageUrl() {
-        if (!this.json.partOfSeries)
-            return 'images/no-image.jpg';
-        if (!this.json.partOfSeries.coverImage && !this.json.partOfSeries.image)
-            return 'images/no-image.jpg';
+        if (!this.json.partOfSeries) {
+          return 'images/no-image.jpg';
+        }
+        if (!this.json.partOfSeries.coverImage && !this.json.partOfSeries.image) {
+          return 'images/no-image.jpg';
+        }
         const itemId = this.json.partOfSeries.coverImage.id ||
             this.json.partOfSeries.image.id;
         return `http://images.cdn.yle.fi/image/upload/${itemId}.jpg`;

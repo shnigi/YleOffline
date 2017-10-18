@@ -8,8 +8,8 @@ import MediaList from './views/mediaList.js';
 const view = document.getElementById('view');
 
 const routes = {
-  list: showMediaList
-}
+  list: showMediaList,
+};
 
 const searchInput = document.getElementById('searchShowsInput');
 let timeout = null;
