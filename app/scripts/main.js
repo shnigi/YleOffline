@@ -59,15 +59,18 @@ const getCurrentPrograms = () => {
 async function handleRouteChange() {
   // Fetch the current route
   const hashPart = location.hash.replace(/^#/, '');
-  console.log(`Handle route change '${hashPart}'`);
 
   // Perform the routing
   const segments = hashPart.split('/');
   const contentId = segments[0];
   const mediaId = segments[1];
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
-  const url = decrypt.decrypt(encUrl, config.secret);
-  console.log(url);
+  if (encUrl == null) {
+    console.log("No file available");
+  } else {
+    const url = decrypt.decrypt(encUrl, config.secret);
+    console.log(url);  
+  }
   return;
 }
 

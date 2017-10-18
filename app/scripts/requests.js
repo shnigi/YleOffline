@@ -15,6 +15,7 @@ export async function fetchCurrentPrograms() {
   params.set('type', 'tvcontent');
   params.set('downloadable', true);
   params.set('availability', 'ondemand');
+  params.set('mediaobject', 'video');
 
   // Fix the jsonp callback function name for service worker compatibility
   const options = {jsonpCallbackFunction: 'jsonp_options'};
@@ -43,8 +44,12 @@ export async function fetchEncryptedUrl(programId, mediaId) {
 
   // Fix the jsonp callback function name for service worker compatibility
   const options = {jsonpCallbackFunction: 'jsonp_url'};
-  const response = await fetchp(url.href, options);
-  // TODO Validate response
-  const json = await response.json();
-  return json.data[0].url;
+  try {
+    const response = await fetchp(url.href, options);
+    // TODO Validate response
+    const json = await response.json();
+    return json.data[0].url;
+  } catch (e) {
+    return null;
+  }
 }
