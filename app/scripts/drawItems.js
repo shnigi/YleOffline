@@ -11,7 +11,7 @@ export async function drawItems(item) {
       const imageUrl = `http://images.cdn.yle.fi/image/upload/${image.id}.jpg`;
       const itemTitle = item.itemTitle.fi || item.itemTitle.sv;
       programsView.innerHTML += `
-      <a href="#${item.id}}">
+      <a href="#${item.id}">
         <div class="mdc-card card-image">
           <h1 class="image-title">${itemTitle}</h1>
           <img src="${imageUrl}" class="program-image"
