@@ -1,4 +1,6 @@
 import * as apiRequests from './requests.js';
+import * as decrypt from './decryptUrl.js';
+import config from '../../config.json';
 
 import MediaList from './views/mediaList.js';
 import MediaDetails from './views/mediaDetails.js';
@@ -10,6 +12,7 @@ const routes = {
   list: showMediaList,
   details: showMediaDetails,
   downloaded: showDownloaded,
+  download: initDownload,
 };
 
 let navIsOpen = false;
@@ -86,18 +89,12 @@ async function handleRouteChange() {
     case 'downloaded':
       routes.downloaded();
       break;
+    case 'download':
+      routes.download(segments[1], segments[2]);
+      break;
     default:
       break;
   };
-/*  const contentId = segments[0];
-  const mediaId = segments[1];
-  const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
-  if (encUrl == null) {
-    console.log('No file available');
-  } else {
-    const url = decrypt.decrypt(encUrl, config.secret);
-    console.log(url);
-  }*/
 }
 
 async function showMediaList() {
@@ -110,6 +107,16 @@ async function showMediaDetails(id) {
   const item = await apiRequests.fetchMediaItem(id);
   const page = new MediaDetails(view, item);
   page.render();
+};
+
+async function initDownload(contentId, mediaId) {
+  const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
+  if (encUrl == null) {
+    console.log('No file available');
+  } else {
+    const url = decrypt.decrypt(encUrl, config.secret);
+    console.log(url);
+  }
 };
 
 (function() {

@@ -27,7 +27,7 @@ export default class MediaDetails {
         }
         const progTitle = this.media.program.title.fi || this.media.program.title.sv;
         const progDescription = this.media.program.description.fi || this.media.program.description.sv || '';
-        this.element.innerHTML = `
+        let html = `
         <div class="mdc-card card-image">
           <h2 class="image-title">${progTitle}</h2>
           <img src="${progImage}" style="width:100%;">
@@ -35,25 +35,28 @@ export default class MediaDetails {
         <div class="mdc-list">
           ${progDescription}
         </div>
-        <ul class="mdc-list mdc-list--two-line mdc-list--avatar-list two-line-avatar-text-icon-demo msgs-list">
-        `;
-        this.media.episodes.forEach((episode) => {
-          this.element.innerHTML += `
-            <li class="mdc-list-item ">
-                <span class="mdc-list-item__text">
-                  ${episode.getTitle()}
-                  <span class="mdc-list-item__text__secondary">Kesto ${episode.getDuration()}min</span>
-                </span>
-                <span class="mdc-list-item__end-detail">
-                  <a href="#download"><i class="material-icons btnGray" arial-label="Download">file_download</i></a>
-                  <a href="#stream"><i class="material-icons btnGreen" arial-label="Stream">play_circle_filled</i></a>
-                </span>
-            </li>
+        <section>
+          <ul class="listaus">
           `;
-          });
-        this.element.innerHTML += `
-          </ul>
+          this.media.episodes.forEach((episode) => {
+            html += `
+            <li>
+              <span class="lLeft">
+                <span class="lTitle">${episode.getTitle()}</span>
+                <span class="lDur">Kesto ${episode.getDuration()}min</span>
+              </span>
+              <span class="lRight">
+                <a href="#download/${episode.getId()}/${episode.getMediaId()}"><i class="material-icons btnGray" arial-label="Download">file_download</i></a>
+                <a href="#stream/{id}"><i class="material-icons btnGreen" arial-label="Stream">play_circle_filled</i></a>
+              </span>
+            </li>      
+            `;
+            });
+          html += `
+            </ul>
+          </section>
         `;
+        this.element.innerHTML = html;
 
       // Attach the scroller - this is done after templating to permit the right behaviour
       // const tabBarScroller =
