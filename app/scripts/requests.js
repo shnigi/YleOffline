@@ -96,6 +96,9 @@ export async function fetchCategoryPrograms(category) {
   params.set('app_key', config.appKey);
   params.set('category', category);
   params.set('limit', 10);
+  params.set('type', 'tvcontent');
+  params.set('availability', 'ondemand');
+  params.set('mediaobject', 'video');
 
   const options = {jsonpCallbackFunction: 'jsonp_category'};
   try {

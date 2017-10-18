@@ -16,11 +16,13 @@ export default class Player {
 
     render() {
         this.element.innerHTML = `
-        <video autoplay controls>
+        <video id="player" autoplay controls>
           <source src="${this.url}" type="video/mp4">
           Video ei toimi tällä laitteella
         </video> 
         `;
+        const player = document.getElementById('player');
+        player.play();
         screen.orientation.lock('landscape');
     }
 }
