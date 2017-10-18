@@ -1,4 +1,5 @@
 import * as apiRequests from './requests.js';
+import * as Categories from './categories.js';
 
 import MediaList from './views/mediaList.js';
 import MediaDetails from './views/mediaDetails.js';
@@ -10,6 +11,7 @@ const routes = {
   list: showMediaList,
   details: showMediaDetails,
   downloaded: showDownloaded,
+  category: showCategory,
 };
 
 let navIsOpen = false;
@@ -62,6 +64,15 @@ async function showDownloaded() {
   page.render();
 };
 
+async function showCategory() {
+  const hashPart = location.hash.replace(/^#/, '');
+  const category = hashPart.split('/')[1];
+  const categoryId = Categories.getCategory(category);
+  const mediaItems = await apiRequests.fetchCategoryPrograms(categoryId);
+  const page = new MediaList(view, mediaItems);
+  page.render();
+};
+
 // Add eventlistener to watch changes in search form
 searchInput.addEventListener('change', getMatchingShows);
 searchInput.addEventListener('keyup', getMatchingShows);
@@ -85,6 +96,9 @@ async function handleRouteChange() {
       break;
     case 'downloaded':
       routes.downloaded();
+      break;
+    case 'category':
+      routes.category();
       break;
     default:
       break;
