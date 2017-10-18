@@ -25,12 +25,12 @@
 // https://babeljs.io/docs/learn-es2015/
 
 import {output as pagespeed} from 'psi';
-import BabelMinifyPlugin from 'babel-minify-webpack-plugin';
+// import BabelMinifyPlugin from 'babel-minify-webpack-plugin';
 import browserSync from 'browser-sync';
 import del from 'del';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import path from 'path';
+// import path from 'path';
 import pkg from './package.json';
 import runSequence from 'run-sequence';
 import webpack from 'webpack';
@@ -132,10 +132,10 @@ gulp.task('scripts', () => {
         },
       ],
     },
-    plugins: [
-      new webpack.optimize.AggressiveMergingPlugin(),
-      new BabelMinifyPlugin({}, {}),
-    ],
+    // plugins: [
+    //   new webpack.optimize.AggressiveMergingPlugin(),
+    //   new BabelMinifyPlugin({}, {}),
+    // ],
   };
 
   return webpackStream(webpackSettings)
