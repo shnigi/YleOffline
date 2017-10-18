@@ -61,6 +61,9 @@ async function handleRouteChange() {
   const segments = hashPart.split('/');
   const action = segments[0];
   switch (action) {
+    case '':
+      routes.list();
+      break;
     case 'list':
       routes.list();
       break;
