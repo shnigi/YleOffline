@@ -10,7 +10,6 @@ export default class MediaDetails {
 
     render() {
         let progImage = 'images/no-image.jpg';
-        console.log('this', this.media);
         if (this.media.program.image || this.media.program.coverImage) {
           const imageId = this.media.program.image.id ||
                         this.media.program.coverImage.id;

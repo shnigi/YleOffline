@@ -13,7 +13,6 @@ const programsTab = document.getElementById('programs');
 const downloadedTab = document.getElementById('tallennettu');
 
 const changeActiveTab = (tab) => {
-  console.log('tab', tab);
   if (tab === 'downloads') {
     programsTab.classList.remove('mdc-tab--active');
     downloadedTab.className += ' mdc-tab--active';
@@ -129,9 +128,7 @@ async function showMediaList() {
 };
 
 async function showMediaDetails(id) {
-  console.log('id', id);
   const item = await apiRequests.fetchMediaItem(id);
-  console.log('item', item);
   const page = new MediaDetails(view, item);
   page.render();
   const goBack = () => window.history.back();
