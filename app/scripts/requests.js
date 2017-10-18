@@ -52,4 +52,29 @@ export async function fetchEncryptedUrl(programId, mediaId) {
   } catch (e) {
     return null;
   }
-}
+};
+
+/**
+ * searchPrograms - description
+ *
+ * @param  {type} queryParam description
+ * @return {type}            description
+ */
+export async function searchPrograms(queryParam) {
+  const url = new URL(`${baseUrl}/programs/items.json`);
+  const params = url.searchParams;
+  params.set('app_id', config.appId);
+  params.set('app_key', config.appKey);
+  params.set('q', queryParam);
+  params.set('limit', 10);
+  params.set('typeMedia', 'TVContent');
+
+  const options = {jsonpCallbackFunction: 'jsonp_url'};
+  try {
+    const response = await fetchp(url.href, options);
+    const json = await response.json();
+    return json.data;
+  } catch (e) {
+    return null;
+  }
+};
