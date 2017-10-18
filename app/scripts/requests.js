@@ -11,7 +11,6 @@ export async function fetchCurrentPrograms() {
   params.set('app_id', config.appId);
   params.set('app_key', config.appKey);
   params.set('type', 'tvcontent');
-  params.set('downloadable', true);
   params.set('availability', 'ondemand');
   params.set('mediaobject', 'video');
 
@@ -30,7 +29,7 @@ export async function fetchMediaItem(id) {
 
   const mediaOptions = {jsonpCallbackFunction: 'jsonp_mediaitem'};
 
-  const mediaResponse = await fetchp(mediaUrl.href, options);
+  const mediaResponse = await fetchp(mediaUrl.href, mediaOptions);
   const mediaJson = await mediaResponse.json();
   const programId = mediaJson.data.partOfSeries.id;
 
@@ -39,7 +38,6 @@ export async function fetchMediaItem(id) {
   params.set('app_id', config.appId);
   params.set('app_key', config.appKey);
   params.set('type', 'tvcontent');
-  params.set('downloadable', true);
   params.set('availability', 'ondemand');
   params.set('mediaobject', 'video');
   params.set('series', programId);
@@ -48,10 +46,8 @@ export async function fetchMediaItem(id) {
 
   const response = await fetchp(url.href, options);
   const json = await response.json();
-  for (let i in json.data) {
-    json.data[i] = new MediaItem(json.data[i]);
-  }
-  return {program: mediaJson.data.partOfSeries, episodes: json.data};
+  const episodes = _.map(json.data, (item) => new MediaItem(item));
+  return {program: mediaJson.data.partOfSeries, episodes: episodes};
 }
 
 export async function fetchEncryptedUrl(programId, mediaId) {
@@ -81,7 +77,6 @@ export async function searchPrograms(queryParam) {
   params.set('q', queryParam);
   params.set('limit', 10);
   params.set('type', 'tvcontent');
-  params.set('downloadable', true);
   params.set('availability', 'ondemand');
   params.set('mediaobject', 'video');
 

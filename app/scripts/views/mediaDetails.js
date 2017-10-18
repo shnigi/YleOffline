@@ -6,45 +6,57 @@ export default class MediaDetails {
      * Default constructor for setting the values
      *
      * @param {HTMLElement} element - The HTML element to bind/adopt
-     * @param {Array<Object>} [mediaItem=null] - Media item to show
+     * @param {JSON} [media=null] - Program details + array of episode details
      */
-    constructor(element, mediaItem = null) {
+    constructor(element, media = null) {
       this.element = element;
-      this.mediaItem = mediaItem;
+      this.media = media;
       //this.supportsPUSH = false;
     }
-  
+
     /**
      * Render page.
      *
-     * @return {HTMLElement} The rendered element
      */
     render() {
-      this.element.innerHTML = `
+        let progImage = 'images/no-image.jpg';
+        if (this.media.program.image || this.media.program.coverImage) {
+          const imageId = this.media.program.image.id ||
+                        this.media.program.coverImage.id;
+          progImage = `http://images.cdn.yle.fi/image/upload/${imageId}.jpg`;
+        }
+        const progTitle = this.media.program.title.fi || this.media.program.title.sv;
+        const progDescription = this.media.program.description.fi || this.media.program.description.sv || '';
+        this.element.innerHTML = `
         <div class="mdc-card card-image">
-          <h1 class="image-title">${this.mediaItem.getTitle()}</h1>
-          <img src="${this.mediaItem.getImageUrl()}" style="width:100%;">
+          <h1 class="image-title">${progTitle}</h1>
+          <img src="${progImage}" style="width:100%;">
         </div>
         <div class="mdc-list">
-          ${this.mediaItem.getDescription()}
+          ${progDescription}
         </div>
         <ul class="mdc-list mdc-list--two-line mdc-list--avatar-list two-line-avatar-text-icon-demo msgs-list">
-          <li class="mdc-list-item ">
-              <span class="mdc-list-item__text">
-                Jakso
-                <span class="mdc-list-item__text__secondary">Kesto 45min</span>
-              </span>
-              <span class="mdc-list-item__end-detail">
-                <a href="#download"><i class="material-icons btnGray" arial-label="Download">file_download</i></a>
-                <a href="#stream"><i class="material-icons btnGreen" arial-label="Stream">play_circle_filled</i></a>
-              </span>
-          </li>
-        </ul>
-      `;
-  
+        `;
+        this.media.episodes.forEach((episode) => {
+          this.element.innerHTML += `
+            <li class="mdc-list-item ">
+                <span class="mdc-list-item__text">
+                  ${episode.getTitle()}
+                  <span class="mdc-list-item__text__secondary">Kesto ${episode.getDuration()}min</span>
+                </span>
+                <span class="mdc-list-item__end-detail">
+                  <a href="#download"><i class="material-icons btnGray" arial-label="Download">file_download</i></a>
+                  <a href="#stream"><i class="material-icons btnGreen" arial-label="Stream">play_circle_filled</i></a>
+                </span>
+            </li>
+          `;
+          });
+        this.element.innerHTML += `
+          </ul>
+        `;
+
       // Attach the scroller - this is done after templating to permit the right behaviour
       // const tabBarScroller =
       //  new MDCTabBarScroller(document.querySelector('.mdc-tab-bar-scroller'));
     }
-  
-  }
+}

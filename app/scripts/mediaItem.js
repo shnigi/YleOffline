@@ -47,4 +47,38 @@ export default class MediaItem {
     getDescription() {
         return this.json.description.fi || this.json.description.sv;
     }
+
+    getDuration() {
+        const durationString = this.json.publicationEvent
+        .map((e) => {
+          if (!e.media || !e.media.available) {
+            return null;
+          }
+
+          return e.media.duration;
+        })
+        .find((dur) => dur !== null);
+        let times = durationString.match(/\d+/g);
+        times = times.map(parseInt);
+        if (durationString.indexOf('H') !== -1) {
+            if (durationString.indexOf('M') !== -1) {
+                if (durationString.indexOf('S') !== -1) {
+                    return times[0] * 60 + times[1] + ((times[2] > 30) ? 1 : 0);
+                } else {
+                    return times[0] * 60 + times[1];
+                }
+            } else {
+                return times[0] * 60;
+            }
+        } else {
+            if (durationString.indexOf('M') !== -1) {
+                if (durationString.indexOf('S') !== -1) {
+                    return times[0] + ((times[1] > 30) ? 1 : 0);
+                } else {
+                    return times[0];
+                }
+            }
+        }
+        return null;
+    }
 }
