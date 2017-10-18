@@ -1,7 +1,6 @@
 import fetchp from 'fetch-jsonp';
 import config from '../../config.json';
 import MediaItem from './mediaItem.js';
-import * as _ from 'lodash';
 
 const baseUrl = 'https://external.api.yle.fi/v1';
 
@@ -19,7 +18,7 @@ export async function fetchCurrentPrograms() {
 
   const response = await fetchp(url.href, options);
   const json = await response.json();
-  return _.map(json.data, (item) => new MediaItem(item));
+  return json.data.map((item) => new MediaItem(item));
 }
 
 export async function fetchMediaItem(id) {
@@ -67,7 +66,7 @@ export async function searchPrograms(queryParam) {
   try {
     const response = await fetchp(url.href, options);
     const json = await response.json();
-    return _.map(json.data, (item) => new MediaItem(item));
+    return json.data.map((item) => new MediaItem(item));
   } catch (e) {
     return null;
   }
