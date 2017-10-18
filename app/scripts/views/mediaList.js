@@ -1,4 +1,3 @@
-import {bind, wire} from 'hyperhtml';
 /**
  * View for listing media that can be streamed or downloaded. Frontpage
  */
