@@ -5,7 +5,6 @@ import MediaDetails from './views/mediaDetails.js';
 import DownloadedList from './views/downloadedList.js';
 
 const view = document.getElementById('view');
-// const menuButton = document.getElementById('toggleMenu');
 
 const routes = {
   list: showMediaList,
@@ -79,9 +78,6 @@ async function handleRouteChange() {
   const action = segments[0];
   switch (action) {
     case '':
-      routes.list();
-      break;
-    case 'list':
       routes.list();
       break;
     case 'details':
