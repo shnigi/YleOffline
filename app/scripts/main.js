@@ -1,8 +1,34 @@
 import * as apiRequests from './requests.js';
+import * as draw from './drawItems.js';
 import * as decrypt from './decryptUrl.js';
 import config from '../../config.json';
 
 const programsView = document.getElementById('programs');
+const searchInput = document.getElementById('searchShowsInput');
+let timeout = null;
+
+// If user stops typing, after 500ms fetch shows and draw them
+const getMatchingShows = (e) => {
+  clearTimeout(timeout);
+   timeout = setTimeout( () => {
+    const value = searchInput.value;
+    if (value === '') {
+      programs.innerHTML = '';
+      getCurrentPrograms();
+    }
+    apiRequests.searchPrograms(value)
+    .then((response) => {
+      programs.innerHTML = '';
+      response.forEach((item) => {
+        draw.drawItems(item);
+      });
+    });
+    }, 500);
+};
+
+// Add eventlistener to watch changes in search form
+searchInput.addEventListener('change', getMatchingShows);
+searchInput.addEventListener('keyup', getMatchingShows);
 
 const getCurrentPrograms = () => {
   apiRequests.fetchCurrentPrograms()
@@ -36,7 +62,7 @@ const getCurrentPrograms = () => {
           if (!e.media || !e.media.available) {
             return null;
           }
-  
+
           return e.media.id;
         })
         .find((id) => id !== null);
@@ -66,10 +92,10 @@ async function handleRouteChange() {
   const mediaId = segments[1];
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
   if (encUrl == null) {
-    console.log("No file available");
+    console.log('No file available');
   } else {
     const url = decrypt.decrypt(encUrl, config.secret);
-    console.log(url);  
+    console.log(url);
   }
   return;
 }
