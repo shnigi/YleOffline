@@ -15,14 +15,15 @@ const getMatchingShows = () => {
     if (value === '') {
       programs.innerHTML = '';
       getCurrentPrograms();
-    }
-    apiRequests.searchPrograms(value)
-    .then((response) => {
-      programs.innerHTML = '';
-      response.forEach((item) => {
-        draw.drawItems(item);
+    } else {
+      apiRequests.searchPrograms(value)
+      .then((response) => {
+        programs.innerHTML = '';
+        response.forEach((item) => {
+          draw.drawItems(item);
+        });
       });
-    });
+    }
     }, 500);
 };
 
@@ -34,6 +35,7 @@ const getCurrentPrograms = () => {
   apiRequests.fetchCurrentPrograms()
     .then((response) => {
       response.forEach((item) => {
+        console.log('item', item);
         if (item && item.partOfSeries) {
           const itemId = item.partOfSeries.coverImage.id ||
                 item.partOfSeries.image.id;
