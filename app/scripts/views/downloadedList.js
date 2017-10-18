@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 /**
  * View for viewing downloaded videos.
  */
@@ -19,19 +17,12 @@ export default class DownloadedList {
    * Render page.
    */
   render() {
-    this.element.innerHTML = _.map(this.mediaItems, (media) => {
+    this.element.innerHTML = this.mediaItems.map((media) => {
       return `<a href="#downloaded/${media.getId()}"><div class="mdc-card">
             <i class="material-icons">play arrow</i>
             <h5 class="image-title">${media.getTitle()}</h1>
-          </div></a>`;
+          </div></a>
+        `;
     }).join('');
-   // this.mediaItems.forEach((media) => {
-   //     this.element.innerHTML += `
-   //       <a href="#downloaded/${media.getId()}"><div class="mdc-card">
-   //         <i class="material-icons">play arrow</i>
-   //         <h5 class="image-title">${media.getTitle()}</h1>
-   //       </div></a>
-   //     `;
-   // });
   }
 }
