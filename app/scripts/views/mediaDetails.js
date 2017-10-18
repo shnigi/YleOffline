@@ -17,7 +17,7 @@ export default class MediaDetails {
     render() {
       this.element.innerHTML = `
         <div class="mdc-card card-image">
-          <h1 class="image-title">${this.mediaItem.getTitle()}</h1>
+          <h2 class="image-title">${this.mediaItem.getTitle()}</h2>
           <img src="${this.mediaItem.getImageUrl()}" style="width:100%;">
         </div>
       `;
