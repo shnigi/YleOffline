@@ -32,11 +32,22 @@ body {
   width: 100%;
 }
 
-.media-control-buttons {
+.media-control-buttons { // Download Button
   color: $accent-color;
   font-size: 40px;
   margin-left: 10px;
-} // Download Button
+}
+
+#view .card-image { // text-align issue fix
+ position:relative;
+ overflow:hidden;
+ }
+#view .card-image h2 { // text-align issue fix
+ font-size:1.1em;
+ position:absolute;
+ display:block;
+ bottom:0;
+ }
 
 // Custom ListView Styling -->
 .btnLeft {
