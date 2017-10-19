@@ -157,6 +157,7 @@ async function showMediaDetails(id) {
 
 async function initPlayer(contentId, mediaId) {
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
+  console.log(encUrl);
   if (encUrl == null) {
     console.log('No file available');
   } else {
