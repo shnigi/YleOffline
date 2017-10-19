@@ -39,6 +39,12 @@ body {
   margin-left: 10px;
 }
 
+.loadingIcon{
+  height:40px;
+  width:40px;
+  margin-left:10px;
+  }
+
 #view .card-image { // text-align issue fix
  position:relative;
  overflow:hidden;
@@ -185,7 +191,7 @@ ul.listaus li span.lDur {
 
 hr {
   // width: 200%;
-  margin-right: -115px;
+  margin-right: -100px;
   margin-left: 0px;
   border: 0;
   border-top: 1px solid $light-gray;
