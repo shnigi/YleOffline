@@ -34,7 +34,7 @@ export default class DownloadedList {
         }
          html += `</span>
           <span class="lRight">
-            <i class="material-icons media-control-buttons arial-label="Stream">delete_forever</i>`;
+          <a href="#delete/${episode.id}"><i class="material-icons media-control-buttons arial-label="Stream">delete_forever</i></a>`;
             if (episode.downloaded)
               html += `<a href="#localStream/${episode.id}"><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>`;
             else
