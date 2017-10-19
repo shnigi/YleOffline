@@ -36,6 +36,12 @@ const cacheOneWeekStrategy = workboxSW.strategies.cacheFirst({
   },
 });
 
+// Cache YLE API images
+workboxSW.router.registerRoute(
+  'http://images.cdn.yle.fi/image/upload/(.*)',
+  cacheOneWeekStrategy
+);
+
 // Cache external fonts, including the fonts from Google CDN
 workboxSW.router.registerRoute(
   'https://fonts.googleapis.com/(.*)',
