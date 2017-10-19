@@ -183,6 +183,19 @@ function deleteVideo(id) {
   });
 }
 
+export function downloadReady(id, title) {
+    // Fetch the current route
+    const hashPart = location.hash.replace(/^#/, '');
+    
+    // Perform the routing
+    const segments = hashPart.split('/');
+    const action = segments[0];
+    if (action === 'downloaded') {
+      routes.downloaded();
+    }
+
+}
+
 (function() {
   'use strict';
   const isLocalhost = Boolean(window.location.hostname === 'localhost' ||

@@ -1,5 +1,6 @@
 import * as apiRequests from './requests.js';
 import * as decrypt from './decryptUrl.js';
+import * as main from './main.js';
 import config from '../../config.json';
 
 export function vmSetVideoDownloadState(id='', val=0){
@@ -40,7 +41,7 @@ export function vmDownload(vId='',vTitle='',vUrl='', vDur=0) {
     store.put({id: vId, title: vTitle, downloaded: 0, url: vUrl, duration: vDur});
     tx.oncomplete = function() {
       db.close();
-      vmDownloadCOREOperation(vId,vTitle,vUrl);
+      vmDownloadCOREOperation(vId,vTitle,vUrl,main.downloadReady);
       };  
     }
   }
@@ -118,7 +119,7 @@ export function vmDeleteAllVideosFromStorage(){
       });
     });  
   }
-function vmDownloadCOREOperation(id='', title='', url='') {
+function vmDownloadCOREOperation(id='', title='', url='', callBack) {
    let IDBTransaction = window.IDBTransaction || 
                         window.webkitIDBTransaction || 
                         window.OIDBTransaction || 
@@ -140,9 +141,8 @@ function vmDownloadCOREOperation(id='', title='', url='') {
             if (xhr.status === 200) {
                 blob = xhr.response;
                 putVideoInDb(blob);
-                //PushFromDB('Videon "'+title+'" lataus on valmistunut!'); /* send Local Notification to user */
-                console.log('video success');
                 vmSetVideoDownloadState(id, 1); /* set download status to: 1 completed */
+                callBack(id, title);
             }
             else {
                 vmSetVideoDownloadState(id, -1); /* set download status to: -1 error */
@@ -153,7 +153,6 @@ function vmDownloadCOREOperation(id='', title='', url='') {
       putVideoInDb = function (blob) {
          let transaction = db.transaction(["Videos"], "readwrite");
          let put = transaction.objectStore("Videos").put(blob, id);
-         console.log('sinne asti');
       };
     request.onerror = function (event) {
         console.log("Error creating/accessing IndexedDB database");
