@@ -29,7 +29,7 @@ const routes = {
   list: showMediaList,
   details: showMediaDetails,
   downloaded: showDownloaded,
-  download: initDownload,
+  player: initPlayer,
   category: showCategory,
 };
 
@@ -114,8 +114,8 @@ async function handleRouteChange() {
     case 'downloaded':
       routes.downloaded();
       break;
-    case 'download':
-      routes.download(segments[1], segments[2]);
+    case 'playStream':
+      routes.player(segments[1], segments[2]);
       break;
     case 'category':
       routes.category();
@@ -140,7 +140,7 @@ async function showMediaDetails(id) {
   backButton.addEventListener('click', goBack);
 };
 
-async function initDownload(contentId, mediaId) {
+async function initPlayer(contentId, mediaId) {
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
   if (encUrl == null) {
     console.log('No file available');

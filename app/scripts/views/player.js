@@ -19,15 +19,16 @@ export default class Player {
         <video id="player" autoplay controls>
           <source src="${this.url}" type="video/mp4">
           Video ei toimi tällä laitteella
-        </video> 
+        </video>
         `;
         const player = document.getElementById('player');
-        console.log(player);
-        if (player.webkitRequestFullscreen)
+        console.log('player', player);
+        if (player.webkitRequestFullscreen) {
           player.webkitRequestFullscreen();
-        else
+        } else {
           console.log('cant fullscreen');
+        }
         player.play();
-        //screen.orientation.lock('landscape');
+        // screen.orientation.lock('landscape');
     }
 }
