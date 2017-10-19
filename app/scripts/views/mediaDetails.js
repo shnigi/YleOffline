@@ -34,9 +34,12 @@ export default class MediaDetails {
             html += `
             <li>
               <span class="lLeft">
-                <span class="lTitle">${episode.getTitle()}</span>
-                <span class="lDur">Kesto ${episode.getDuration()}min</span>
-              </span>
+                <span class="lTitle">${episode.getTitle()}</span>`;
+
+            if (episode.getDuration() !== ' ') {
+                html += `<span class="lDur">Kesto ${episode.getDuration()} min</span>`;
+            }
+           html +=  `</span>
               <span class="lRight">
                 <a href="#download/${episode.getId()}/${episode.getMediaId()}"><i class="material-icons media-control-buttons" arial-label="Download">file_download</i></a>
                 <a href="#"><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>

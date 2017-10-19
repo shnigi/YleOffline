@@ -30,7 +30,7 @@ export default class DownloadedList {
           <span class="lLeft">
             <span class="lTitle">${episode.getTitle()}</span>`;
         if (episode.getDuration() !== ' ') {
-          html += `<span class="lDur">Kesto ${episode.getDuration()}min</span>`;
+          html += `<span class="lDur">Kesto ${episode.getDuration()} min</span>`;
         }
          html += `</span>
           <span class="lRight">
