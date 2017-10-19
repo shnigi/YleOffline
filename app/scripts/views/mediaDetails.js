@@ -1,3 +1,4 @@
+import * as videoMagic from '../videoMagic.js';
 /**
  * View for showing media item's details
  */
@@ -38,7 +39,7 @@ export default class MediaDetails {
                 <span class="lDur">Kesto ${episode.getDuration()}min</span>
               </span>
               <span class="lRight">
-                <a href="#download/${episode.getId()}/${episode.getMediaId()}"><i class="material-icons media-control-buttons" arial-label="Download">file_download</i></a>
+                <i id="${episode.getId()}-${episode.getMediaId()}" class="material-icons media-control-buttons" arial-label="Download">file_download</i>
                 <a href="#"><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>
               </span>
             </li>
@@ -50,6 +51,10 @@ export default class MediaDetails {
           </section>
         `;
         this.element.innerHTML = html;
+        this.media.episodes.forEach((episode) => {
+          document.getElementById(`${episode.getId()}-${episode.getMediaId()}`).addEventListener('click',
+            () => videoMagic.initDownload(episode));
+        });
       // Attach the scroller - this is done after templating to permit the right behaviour
       // const tabBarScroller =
       //  new MDCTabBarScroller(document.querySelector('.mdc-tab-bar-scroller'));

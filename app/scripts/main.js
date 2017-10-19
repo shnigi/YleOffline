@@ -2,6 +2,7 @@ import * as apiRequests from './requests.js';
 import * as decrypt from './decryptUrl.js';
 import config from '../../config.json';
 import * as Categories from './categories.js';
+import * as VideoMagic from './videoMagic.js';
 
 import MediaList from './views/mediaList.js';
 import MediaDetails from './views/mediaDetails.js';
@@ -29,8 +30,9 @@ const routes = {
   list: showMediaList,
   details: showMediaDetails,
   downloaded: showDownloaded,
-  download: initDownload,
+  //download: initDownload,
   category: showCategory,
+  stream: streamVideo
 };
 
 let navIsOpen = false;
@@ -72,9 +74,10 @@ async function showSearchResults(queryParam) {
 };
 
 async function showDownloaded() {
-  const mediaItems = await apiRequests.fetchCurrentPrograms();
-  const page = new DownloadedList(view, mediaItems);
-  page.render();
+  VideoMagic.vmGetVideoList().then((vids) => {
+    const page = new DownloadedList(view, vids);
+    page.render();  
+  });
 };
 
 async function showCategory() {
@@ -147,6 +150,11 @@ async function initDownload(contentId, mediaId) {
   }
 };
 
+function streamVideo(url) {
+  const page = new Player(view, url);
+  page.render();
+}
+
 (function() {
   'use strict';
   const isLocalhost = Boolean(window.location.hostname === 'localhost' ||
@@ -161,5 +169,17 @@ async function initDownload(contentId, mediaId) {
   }
 
   window.addEventListener('hashchange', handleRouteChange);
+
+  //Initialize db for offline videos (if not initialized)
+  const indexedDB = window.indexedDB || window.webkitIndexedDB ||
+    window.mozIndexedDB || window.OIndexedDB || window.msIndexedDB;
+  const open = indexedDB.open('YleOff', 1);
+  open.onupgradeneeded = function() {
+    const db = open.result;
+    const store = db.createObjectStore('Videos');
+    const store2 = db.createObjectStore('Clips', {keyPath: 'id'});
+    db.close();
+  };
+
   routes.list();
 })();
