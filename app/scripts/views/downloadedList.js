@@ -33,6 +33,9 @@ export default class DownloadedList {
           </span>
           <span class="lRight">
             <a href="#download/${episode.getId()}/${episode.getMediaId()}">
+              <i class="material-icons media-control-buttons arial-label="Stream">
+                delete_forever
+              </i>
               <i class="material-icons media-control-buttons" arial-label="Stream">
                 play_circle_filled
               </i>
