@@ -42,9 +42,9 @@ export default class MediaDetails {
         }
         html += `</span>
               <span class="lRight">
-                <div id="DLButtonDiv${episode.getId()}">
+                <span id="DLButtonDiv${episode.getId()}">
                   <a id="${episode.getId()}-${episode.getMediaId()}"><i class="material-icons media-control-buttons" arial-label="Download">file_download</i></a>
-                </div>
+                </span>
                 <a href="#playStream/${episode.getId()}/${episode.getMediaId()}""><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>
               </span>
             </li>
@@ -60,7 +60,7 @@ export default class MediaDetails {
         document.getElementById(`${episode.getId()}-${episode.getMediaId()}`).addEventListener('click',
           () => {
           videoMagic.initDownload(episode);
-          var o = document.getElementById(`DLButtonDiv${episode.getId()}`);
+          const o = document.getElementById(`DLButtonDiv${episode.getId()}`);
           o.innerHTML = '<img src="../../images/loading.gif" class="loadingIcon" />';
           });
       });
