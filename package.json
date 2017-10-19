@@ -66,6 +66,7 @@
       ]
     }
   },
+  "eslintIgnore": ["app/scripts/videoMagic.js"],
   "dependencies": {
     "@material/button": "^0.7.0",
     "@material/card": "^0.2.9",
