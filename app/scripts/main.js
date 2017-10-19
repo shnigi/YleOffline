@@ -76,7 +76,7 @@ async function showSearchResults(queryParam) {
 async function showDownloaded() {
   VideoMagic.vmGetVideoList().then((vids) => {
     const page = new DownloadedList(view, vids);
-    page.render();  
+    page.render();
   });
 };
 
@@ -109,21 +109,27 @@ async function handleRouteChange() {
   const action = segments[0];
   switch (action) {
     case '':
+      window.scrollTo(0, 0);
       routes.list();
       break;
     case 'details':
+      window.scrollTo(0, 0);
       routes.details(segments[1]);
       break;
     case 'downloaded':
+      window.scrollTo(0, 0);
       routes.downloaded();
       break;
     case 'playStream':
+      window.scrollTo(0, 0);
       routes.player(segments[1], segments[2]);
       break;
     case 'category':
+      window.scrollTo(0, 0);
       routes.category();
       break;
     case 'localStream':
+      window.scrollTo(0, 0);
       routes.stream(segments[1]);
       break;
     default:
