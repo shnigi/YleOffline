@@ -184,7 +184,6 @@ function deleteVideo(id) {
 }
 
 export function downloadReady(id, title) {
-    new Notification(title + ' download ready!', {});
     // Fetch the current route
     const hashPart = location.hash.replace(/^#/, '');
     
@@ -222,10 +221,6 @@ export function downloadReady(id, title) {
     const store2 = db.createObjectStore('Clips', {keyPath: 'id'});
     db.close();
   };
-
-  Notification.requestPermission().then(function(result) {
-    console.log(result);
-  });
 
   routes.list();
 })();
