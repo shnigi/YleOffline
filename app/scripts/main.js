@@ -32,7 +32,8 @@ const routes = {
   downloaded: showDownloaded,
   player: initPlayer,
   category: showCategory,
-  stream: streamVideo
+  stream: streamVideo,
+  delete: deleteVideo,
 };
 
 let navIsOpen = false;
@@ -132,6 +133,8 @@ async function handleRouteChange() {
       window.scrollTo(0, 0);
       routes.stream(segments[1]);
       break;
+    case 'delete':
+      routes.delete(segments[1]);
     default:
       break;
   };
@@ -167,6 +170,15 @@ function streamVideo(id) {
   VideoMagic.vmPlayVideoToObject(id).then((url) => {
     const page = new Player(view, url);
     page.render();
+  });
+}
+
+function deleteVideo(id) {
+  VideoMagic.vmDeleteVideoFromStorage(id).then(() => {
+    VideoMagic.vmGetVideoList().then((vids) => {
+      const page = new DownloadedList(view, vids);
+      page.render();  
+    });  
   });
 }
 
