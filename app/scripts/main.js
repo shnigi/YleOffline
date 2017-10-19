@@ -30,7 +30,7 @@ const routes = {
   list: showMediaList,
   details: showMediaDetails,
   downloaded: showDownloaded,
-  //download: initDownload,
+  player: initPlayer,
   category: showCategory,
   stream: streamVideo
 };
@@ -83,6 +83,10 @@ async function showDownloaded() {
 async function showCategory() {
   const hashPart = location.hash.replace(/^#/, '');
   const category = hashPart.split('/')[1];
+  handleNav();
+  if (hamburger.classList.contains('open')) {
+    hamburger.classList.toggle('open');
+  }
   const categoryId = Categories.getCategory(category);
   const mediaItems = await apiRequests.fetchCategoryPrograms(categoryId);
   const page = new MediaList(view, mediaItems);
@@ -113,8 +117,8 @@ async function handleRouteChange() {
     case 'downloaded':
       routes.downloaded();
       break;
-    case 'download':
-      routes.download(segments[1], segments[2]);
+    case 'playStream':
+      routes.player(segments[1], segments[2]);
       break;
     case 'category':
       routes.category();
@@ -139,7 +143,7 @@ async function showMediaDetails(id) {
   backButton.addEventListener('click', goBack);
 };
 
-async function initDownload(contentId, mediaId) {
+async function initPlayer(contentId, mediaId) {
   const encUrl = await apiRequests.fetchEncryptedUrl(contentId, mediaId);
   if (encUrl == null) {
     console.log('No file available');

@@ -43,8 +43,9 @@ body {
  overflow:hidden;
  }
 #view .card-image h2 { // text-align issue fix
- font-size:1.1em;
+ font-size:1.5em;
  position:absolute;
+ line-height: 100%;
  display:block;
  bottom:0;
  }
@@ -170,7 +171,7 @@ ul.listaus li span.lDur {
 .back-arrow {
   color: rgb(201,201,201);
   position: absolute;
-  top: 65px;
+  top: 10px;
   margin-left: 10px;
   font-size: 30px;
   transition: 0.4s;
