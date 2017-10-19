@@ -80,6 +80,10 @@ async function showDownloaded() {
 async function showCategory() {
   const hashPart = location.hash.replace(/^#/, '');
   const category = hashPart.split('/')[1];
+  handleNav();
+  if (hamburger.classList.contains('open')) {
+    hamburger.classList.toggle('open');
+  }
   const categoryId = Categories.getCategory(category);
   const mediaItems = await apiRequests.fetchCategoryPrograms(categoryId);
   const page = new MediaList(view, mediaItems);
