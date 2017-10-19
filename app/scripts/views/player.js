@@ -22,7 +22,12 @@ export default class Player {
         </video> 
         `;
         const player = document.getElementById('player');
+        console.log(player);
+        if (player.webkitRequestFullscreen)
+          player.webkitRequestFullscreen();
+        else
+          console.log('cant fullscreen');
         player.play();
-        screen.orientation.lock('landscape');
+        //screen.orientation.lock('landscape');
     }
 }
