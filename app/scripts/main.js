@@ -123,6 +123,9 @@ async function handleRouteChange() {
     case 'category':
       routes.category();
       break;
+    case 'localStream':
+      routes.stream(segments[1]);
+      break;
     default:
       break;
   };
@@ -154,9 +157,11 @@ async function initPlayer(contentId, mediaId) {
   }
 };
 
-function streamVideo(url) {
-  const page = new Player(view, url);
-  page.render();
+function streamVideo(id) {
+  VideoMagic.vmPlayVideoToObject(id).then((url) => {
+    const page = new Player(view, url);
+    page.render();
+  });
 }
 
 (function() {

@@ -63,6 +63,7 @@ export function vmGetVideoList(){
     });
   }
 export function vmPlayVideoToObject (id='') {
+  return new Promise( function(resolve, reject) {  
     IDBTransaction = window.IDBTransaction || 
                      window.webkitIDBTransaction ||
                      window.OIDBTransaction || window.msIDBTransaction;
@@ -71,19 +72,20 @@ export function vmPlayVideoToObject (id='') {
       window.msIndexedDB;
     let request = indexedDB.open("YleOff", 1);
     request.onerror = function (event) {
-      return 0;
+      resolve(null);
       };
     request.onsuccess = function (event) {
-        db = request.result;     
+        let db = request.result;     
         let transaction = db.transaction(["Videos"], "readwrite");
         transaction.objectStore("Videos").get(id).onsuccess = 
         function (event) {
         let videoFile = event.target.result;
         let URL = window.URL || window.webkitURL;
         let videoURL = URL.createObjectURL(videoFile);
-        return videoURL;
+        resolve(videoURL);
         };
       }
+    });
   }
 export function vmDeleteVideoFromStorage(id=''){
   return new Promise( function(resolve, reject) {
