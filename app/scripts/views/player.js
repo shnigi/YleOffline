@@ -22,7 +22,6 @@ export default class Player {
         </video>
         `;
         const player = document.getElementById('player');
-        console.log('player', player);
         if (player.webkitRequestFullscreen) {
           player.webkitRequestFullscreen();
         } else {
