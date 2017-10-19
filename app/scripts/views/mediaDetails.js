@@ -61,7 +61,6 @@ export default class MediaDetails {
     }
     else {
       // Jos ohjelmalla ei ole jaksoja, luodaan tietokortti sille itselleen.
-      console.log(this.media);
       html += `
               <li>
                 <span class="lLeft">
@@ -71,7 +70,8 @@ export default class MediaDetails {
                   <a href="#download/${imageId}/${imageId}"><i class="material-icons media-control-buttons" arial-label="Download">file_download</i></a>
                   <a href="#playStream/${imageId}/${imageId}""><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>
                 </span>
-              </li>`;
+              </li>
+        <hr>`;
     html += `
           </ul>
           </section>

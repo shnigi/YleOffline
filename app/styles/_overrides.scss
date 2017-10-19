@@ -37,6 +37,10 @@ body {
   color: $accent-color;
   font-size: 40px;
   margin-left: 10px;
+  &:hover {
+    cursor: pointer;
+    color: $primary-color;
+  }
 }
 
 .loadingIcon{
