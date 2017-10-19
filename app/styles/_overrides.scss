@@ -1,7 +1,7 @@
 @import "colors";
 // Reset some of the HTML/CSS defaults
 body {
-  margin: 0;
+  margin: 10;
   margin-bottom: 72px;
   margin-top: 48px;
   max-width: 100%;
@@ -10,6 +10,7 @@ body {
 
 .bottom-footer {
   position: fixed;
+  left: 0;
   bottom: 0;
 }
 
@@ -171,8 +172,8 @@ ul.listaus li span.lDur {
 .back-arrow {
   color: rgb(201,201,201);
   position: absolute;
-  top: 10px;
-  margin-left: 10px;
+  top: 15px;
+  margin-left: 28px;
   font-size: 30px;
   transition: 0.4s;
   &:hover {
