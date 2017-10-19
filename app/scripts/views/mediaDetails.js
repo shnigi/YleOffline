@@ -72,12 +72,11 @@ export default class MediaDetails {
                   <a href="#playStream/${imageId}/${imageId}""><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>
                 </span>
               </li>`;
-    }
     html += `
           </ul>
           </section>
           `;
-    this.element.innerHTML = html;
-
+      this.element.innerHTML = html;
+    }
   }
 }
