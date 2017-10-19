@@ -28,13 +28,13 @@ export default class DownloadedList {
         html += `
         <li>
           <span class="lLeft">
-            <span class="lTitle">${episode.getTitle()}</span>`;
-        if (episode.getDuration() !== ' ') {
-          html += `<span class="lDur">Kesto ${episode.getDuration()} min</span>`;
+            <span class="lTitle">${episode.title}</span>`;
+        if (episode.duration !== ' ') {
+          html += `<span class="lDur">Kesto ${episode.duration} min</span>`;
         }
          html += `</span>
           <span class="lRight">
-            <a href="#playStream/${episode.getId()}/${episode.getMediaId()}"><i class="material-icons media-control-buttons arial-label="Stream">delete_forever</i><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>
+            <a href="#localStream/${episode.id}"><i class="material-icons media-control-buttons arial-label="Stream">delete_forever</i><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>
           </span>
         </li>
         <hr>
