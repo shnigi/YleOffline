@@ -34,8 +34,12 @@ export default class DownloadedList {
         }
          html += `</span>
           <span class="lRight">
-            <a href="#localStream/${episode.id}"><i class="material-icons media-control-buttons arial-label="Stream">delete_forever</i><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>
-          </span>
+            <i class="material-icons media-control-buttons arial-label="Stream">delete_forever</i>`;
+            if (episode.downloaded)
+              html += `<a href="#localStream/${episode.id}"><i class="material-icons media-control-buttons" arial-label="Stream">play_circle_filled</i></a>`;
+            else
+              html += `<img src="../../images/loading.gif" class="loadingIcon" />`;            
+          html += `</span>
         </li>
         <hr>
         `;
