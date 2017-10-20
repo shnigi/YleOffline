@@ -3,7 +3,7 @@
 This application is demo for viewing YLE Areena videos offline.
 
 ## installation
-Install NodeJS
+Install NPM
 Install Gulp
 
 Run commands:
